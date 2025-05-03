@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SO2 Teammates — Telegram WebApp для поиска тиммейтов
 
-## Getting Started
+Современное приложение для поиска тиммейтов в игре Standoff 2 через Telegram WebApp.
+Работает на Next.js, TailwindCSS, MongoDB, поддерживает быстрый мессенджер между игроками.
 
-First, run the development server:
+---
+
+## 🚀 Быстрый старт
+
+### 1. Клонируй репозиторий
+
+```bash
+git clone https://github.com/Freddereck/so2_searchteam.git
+cd so2_searchteam
+```
+
+### 2. Установи зависимости
+
+```bash
+npm install
+```
+
+### 3. Настрой переменные окружения
+
+Создай файл `.env.local` в корне проекта и добавь туда строку подключения к MongoDB:
+
+```
+MONGODB_URI=your_mongodb_connection_string
+```
+- Пример для MongoDB Atlas:  
+  `MONGODB_URI=mongodb+srv://username:password@cluster0.mongodb.net/so2?retryWrites=true&w=majority`
+
+### 4. Запусти сервер разработки
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+- Открой [http://localhost:3000](http://localhost:3000) в браузере.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚡️ WebSocket сервер для мгновенного чата
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Для работы мгновенного чата нужен отдельный WebSocket сервер.
 
-## Learn More
+1. Запусти сервер в отдельном терминале:
+   ```bash
+   node socket-server.js
+   ```
+   - По умолчанию он работает на порту 3001.
 
-To learn more about Next.js, take a look at the following resources:
+2. Если сервер на другом хосте — измени адрес в файле `app/components/Chat.tsx`:
+   ```js
+   const socket = io('http://localhost:3001');
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Структура проекта
 
-## Deploy on Vercel
+- `/app` — основной код Next.js (страницы, компоненты)
+- `/models` — схемы MongoDB (Mongoose)
+- `/lib` — вспомогательные функции (например, подключение к MongoDB)
+- `/public` — статические файлы (картинки, фон)
+- `/socket-server.js` — WebSocket сервер для чата
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Основные возможности
+
+- Авторизация через Telegram WebApp
+- Поиск и фильтрация тиммейтов по MMR, верификации и статусу
+- Создание и редактирование анкеты
+- Приватность: можно скрывать Telegram username и Game ID
+- Встроенный мессенджер между игроками (быстрые сообщения)
+- Уведомления о новых сообщениях
+- Админ-панель для управления пользователями, апелляциями и логами сообщений
+- Адаптивный дизайн для мобильных
+
+---
+
+## 🧑‍💻 Для разработчиков
+
+- Используется Next.js 15, React 19, TailwindCSS 4, MongoDB (Mongoose), socket.io, SWR
+- Для мгновенного чата нужен запущенный WebSocket сервер (`socket-server.js`)
+- Все основные настройки — через `.env.local`
+
+---
+
+## ❓ Вопросы
+
+Если что-то не работает или есть вопросы — смотри комментарии в коде или пиши в Issues на GitHub.
+
+---
+
+**Удачи!**  
+Проект готов к запуску и дальнейшему развитию 🚀 
